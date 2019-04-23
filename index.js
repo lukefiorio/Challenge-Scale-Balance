@@ -18,8 +18,12 @@ function scaleBalance(strArr) {
   }
 
   // parse input arrays
-  const BalArr = JSON.parse(strArr[0]);
+  const balArr = JSON.parse(strArr[0]);
   const weightsArr = JSON.parse(strArr[1]);
+
+  if (balArr.length !== 2) {
+    throw new Error('1st element must have two values!');
+  }
 
   // weights for balancing is an empty array
   if (weightsArr.length === 0) {
@@ -27,15 +31,15 @@ function scaleBalance(strArr) {
   }
 
   // scale and weights are not all positive integers
-  const allPositive = BalArr.concat(weightsArr).every(function(elem) {
+  const allPositive = balArr.concat(weightsArr).every(function(elem) {
     return elem > 0;
   });
 
   if (!allPositive) {
-    throw new Error('Weights need to be positive integers!');
+    throw new Error('All values need to be positive integers!');
   }
 
-  const weightNeeded = BalArr[0] - BalArr[1];
+  const weightNeeded = balArr[0] - balArr[1];
   const absWeightNeeded = Math.abs(weightNeeded);
 
   let addCheck = 0;

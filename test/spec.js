@@ -18,10 +18,22 @@ describe('Input', function() {
     }).to.throw('Needs to have 2 elements!');
   });
 
-  it('should throw an error if weights are not stored as strings', function() {
+  it('should throw an error if either element is not stored as string', function() {
     expect(function() {
       scaleBalance([[2, 4], [6, 8]]);
     }).to.throw('Needs to be an array of strings!');
+  });
+
+  it('should throw an error if 1st element does not have two values', function() {
+    expect(function() {
+      scaleBalance(['[2]', '[1, 4, 6, 7]']);
+    }).to.throw('1st element must have two values!');
+  });
+
+  it('should throw an error if scale is not positive integers', function() {
+    expect(function() {
+      scaleBalance(['[2, -4]', '[1, 5, 8]']);
+    }).to.throw('All values need to be positive integers!');
   });
 
   it('should throw an error if 2nd element is empty', function() {
@@ -33,7 +45,7 @@ describe('Input', function() {
   it('should throw an error if weights are not positive integers', function() {
     expect(function() {
       scaleBalance(['[2, 4]', '[1, 5, -8]']);
-    }).to.throw('Weights need to be positive integers!');
+    }).to.throw('All values need to be positive integers!');
   });
 });
 
